@@ -6,9 +6,12 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.osproject.Adapters.addFriendsAdapter
+import com.example.osproject.GnS.Requests
 import com.parse.Parse
 import com.parse.ParseQuery
 import com.parse.ParseUser
@@ -19,18 +22,34 @@ class AddFriend : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_friend)
+
         //Declarations
         var fullUser = HashMap<String, ParseUser>()
         var users = HashMap<String, ParseUser>()
-        //TODO bind xlm views
-        var input : EditText = findViewById()
-        var rv : RecyclerView = findViewById()
+        var input : EditText = findViewById(R.id.addfriendsET)
+        var rv : RecyclerView = findViewById(R.id.addFriendsRv)
         var removeList = ArrayList<String>()
         var adapter : addFriendsAdapter
+        var onClickListener : addFriendsAdapter.OnClickListener
 
+        //Creates Friend request
+        onClickListener = addFriendsAdapter.OnClickListener {
+            var request = Requests()
+            request.requester = ParseUser.getCurrentUser().objectId
+            request.requested = it.objectId
+            request.saveInBackground {
+                if(it != null){
+                    Log.e("AddFriends", "Create Request Exception: " + it)
+                    return@saveInBackground
+                }
+                Toast.makeText(this, "Successfully sent", Toast.LENGTH_SHORT).show()
+            }
+        }
 
-
-
+        //RecyclerView bindings and adapter initialization
+        adapter = addFriendsAdapter(users, onClickListener)
+        rv.adapter = adapter
+        rv.layoutManager = LinearLayoutManager(this)
 
         //Sends Query to backend for friends list
         var parseQuery : ParseQuery<ParseUser> = ParseUser.getQuery()
@@ -47,16 +66,16 @@ class AddFriend : AppCompatActivity() {
                 //Adapter List
                 users.put(i.objectId, i)
             }
+            adapter.notifyDataSetChanged()
         }
 
-        adapter = addFriendsAdapter()
-
-
+        //TextListener based on change
         input.addTextChangedListener(object : TextWatcher{
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
-
+            //Changes display list of users based on input of string
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if(s.toString().isEmpty()){
                     users = HashMap(fullUser)
@@ -76,11 +95,6 @@ class AddFriend : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
 
             }
-
         })
-
-
-        rv.adapter = adapter
-
     }
 }
