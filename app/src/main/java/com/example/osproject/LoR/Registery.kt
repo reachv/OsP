@@ -32,19 +32,32 @@ class Registery : AppCompatActivity() {
             user.username = username.text.toString()
             user.setPassword(password.text.toString())
 
-            //Creates new User in Database
-            user.signUpInBackground(SignUpCallback() {
-                if(it != null){
-
+            var userQuery = ParseUser.getQuery()
+            userQuery.findInBackground { objects, e ->
+                if(e != null){
+                    Log.e("Registery", "Query Exception: " + e)
+                    return@findInBackground
                 }
-                ParseUser.logInInBackground(username.text.toString(), password.text.toString(), LogInCallback { _, e ->
-                    if(e!=null){
-                        Log.e("logInInBackground", "Exception = " + e)
-                        return@LogInCallback
+                for(i in objects){
+                    if(i.username.equals(username.text.toString())){
+                        Toast.makeText(this, "Username already exist, Try again", Toast.LENGTH_SHORT).show()
+                        return@findInBackground
                     }
-                    goMainActivityRegister()
-                })
-            })
+                    //Creates new User in Database
+                    user.signUpInBackground(SignUpCallback() {
+                        if(it != null){
+                            Log.e("Registery", "SignUpException: " + it)
+                        }
+                        ParseUser.logInInBackground(username.text.toString(), password.text.toString(), LogInCallback { _, e ->
+                            if(e!=null){
+                                Log.e("logInInBackground", "Exception = " + e)
+                                return@LogInCallback
+                            }
+                            goMainActivityRegister()
+                        })
+                    })
+                }
+            }
         }
 
         //Returns to Login

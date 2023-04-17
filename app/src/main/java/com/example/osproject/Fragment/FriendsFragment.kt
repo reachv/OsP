@@ -48,8 +48,6 @@ class FriendsFragment : Fragment() {
             startActivity(intent)
         }
 
-
-
         //Sends Query to backend for friends list
         var parseQuery : ParseQuery<ParseUser> = ParseQuery.getQuery("Friends")
         parseQuery.whereEqualTo("currUser", ParseUser.getCurrentUser().objectId)
