@@ -31,6 +31,7 @@ class AddFriend : AppCompatActivity() {
         var removeList = ArrayList<String>()
         var adapter : addFriendsAdapter
         var onClickListener : addFriendsAdapter.OnClickListener
+        var usernames = ArrayList<ParseUser>()
 
         //Creates Friend request
         onClickListener = addFriendsAdapter.OnClickListener {
@@ -47,7 +48,7 @@ class AddFriend : AppCompatActivity() {
         }
 
         //RecyclerView bindings and adapter initialization
-        adapter = addFriendsAdapter(users, onClickListener)
+        adapter = addFriendsAdapter(usernames, onClickListener)
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(this)
 
@@ -66,6 +67,7 @@ class AddFriend : AppCompatActivity() {
                 //Adapter List
                 users.put(i.objectId, i)
             }
+            mapChanged(users, usernames)
             adapter.notifyDataSetChanged()
         }
 
@@ -78,7 +80,8 @@ class AddFriend : AppCompatActivity() {
             //Changes display list of users based on input of string
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if(s.toString().isEmpty()){
-                    users = HashMap(fullUser)
+                    users.putAll(fullUser)
+                    mapChanged(users, usernames)
                     adapter.notifyDataSetChanged()
                 }
                 for(i in fullUser){
@@ -88,13 +91,22 @@ class AddFriend : AppCompatActivity() {
                 for(i in removeList){
                     if(users.containsKey(i)){
                         users.remove(i)
+                        mapChanged(users, usernames)
+                        adapter.notifyDataSetChanged()
                     }
                 }
+                removeList.clear()
             }
 
             override fun afterTextChanged(s: Editable?) {
 
             }
         })
+    }
+    fun mapChanged(x : Map<String, ParseUser>, y : ArrayList<ParseUser>){
+        y.clear()
+        for(i in x){
+            y.add(i.value)
+        }
     }
 }
