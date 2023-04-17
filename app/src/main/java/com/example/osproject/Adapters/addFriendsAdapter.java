@@ -1,5 +1,6 @@
 package com.example.osproject.Adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.osproject.R;
 import com.parse.ParseUser;
 
+import java.util.List;
 import java.util.Map;
 
 public class addFriendsAdapter extends RecyclerView.Adapter<addFriendsAdapter.Viewholder>{
@@ -21,11 +23,11 @@ public class addFriendsAdapter extends RecyclerView.Adapter<addFriendsAdapter.Vi
     }
 
     //Declaration
-    Map<String, ParseUser> userDisplay;
+    List<ParseUser> userDisplay;
     OnClickListener onClickListener;
 
     //Constructor
-    public addFriendsAdapter(Map<String, ParseUser> userDisplay, OnClickListener onClickListener){
+    public addFriendsAdapter(List<ParseUser> userDisplay, OnClickListener onClickListener){
         this.userDisplay = userDisplay;
         this.onClickListener = onClickListener;
     }
