@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.parse.ParseException;
 import com.parse.ParseUser;
 
 import java.util.List;
@@ -55,7 +56,11 @@ public class friendsAdapter extends RecyclerView.Adapter<friendsAdapter.Viewhold
         }
 
         public void bind(ParseUser user) {
-            username.setText(user.getUsername());
+            try {
+                username.setText(user.fetch().getUsername());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             username.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
