@@ -28,9 +28,11 @@ class Registery : AppCompatActivity() {
 
         //Registers User
         reg.setOnClickListener {
+
             val user  = ParseUser()
             user.username = username.text.toString()
             user.setPassword(password.text.toString())
+            user.put("friendsList", ArrayList<ParseUser>())
 
             var userQuery = ParseUser.getQuery()
             userQuery.findInBackground { objects, e ->
@@ -43,20 +45,20 @@ class Registery : AppCompatActivity() {
                         Toast.makeText(this, "Username already exist, Try again", Toast.LENGTH_SHORT).show()
                         return@findInBackground
                     }
-                    //Creates new User in Database
-                    user.signUpInBackground(SignUpCallback() {
-                        if(it != null){
-                            Log.e("Registery", "SignUpException: " + it)
-                        }
-                        ParseUser.logInInBackground(username.text.toString(), password.text.toString(), LogInCallback { _, e ->
-                            if(e!=null){
-                                Log.e("logInInBackground", "Exception = " + e)
-                                return@LogInCallback
-                            }
-                            goMainActivityRegister()
-                        })
-                    })
                 }
+                //Creates new User in Database
+                user.signUpInBackground(SignUpCallback() {
+                    if(it != null){
+                        Log.e("Registery", "SignUpException: " + it)
+                    }
+                    ParseUser.logInInBackground(username.text.toString(), password.text.toString(), LogInCallback { _, e ->
+                        if(e!=null){
+                            Log.e("logInInBackground", "Exception = " + e)
+                            return@LogInCallback
+                        }
+                        goMainActivityRegister()
+                    })
+                })
             }
         }
 

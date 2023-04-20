@@ -10,18 +10,18 @@ import java.util.List;
 public class FriendsList extends ParseObject {
 
     //Getters
-    public String getCurr(){
-        return ParseUser.getCurrentUser().getUsername();
+    public ParseUser getCurr(){
+        return ParseUser.getCurrentUser();
     }
-    public List<String> getFriends(){
+    public List<ParseUser> getFriends(){
         return getList("friendsList");
     }
 
     //Setters
-    public void setCurr(String x){
-        put("currUser", x);
+    public void setCurr(ParseUser x){
+        put("requester", x);
     }
-    public void setfriendsList(List<String> x){
+    public void setfriendsList(List<ParseUser> x){
         put("friendsList", x);
     }
 }

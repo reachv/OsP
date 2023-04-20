@@ -36,8 +36,9 @@ class AddFriend : AppCompatActivity() {
         //Creates Friend request
         onClickListener = addFriendsAdapter.OnClickListener {
             var request = Requests()
-            request.requester = ParseUser.getCurrentUser().objectId
-            request.requested = it.objectId
+            request.setRequester(ParseUser.getCurrentUser())
+            request.setRequested(it)
+
             request.saveInBackground {
                 if(it != null){
                     Log.e("AddFriends", "Create Request Exception: " + it)
@@ -103,6 +104,7 @@ class AddFriend : AppCompatActivity() {
             }
         })
     }
+    //Shifts map values to list
     fun mapChanged(x : Map<String, ParseUser>, y : ArrayList<ParseUser>){
         y.clear()
         for(i in x){
