@@ -18,7 +18,7 @@ class Login : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         //Persistence Check
-//        if(ParseUser.getCurrentUser() !== null)goMainActivity()
+        if(ParseUser.getCurrentUser() !== null)goMainActivity()
 
         //Declarations
         var username : EditText = findViewById(R.id.username)
