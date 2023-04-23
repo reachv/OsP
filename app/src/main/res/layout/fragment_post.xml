@@ -21,10 +21,22 @@
         android:textColor = "#000000"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/homeRv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        android:background = "@drawable/border"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/createTV"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="+"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeRv"
+        android:textAlignment="center"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

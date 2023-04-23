@@ -18,6 +18,12 @@
         android:theme="@style/Theme.OSproject"
         tools:targetApi="31">
         <activity
+            android:name=".gameScreen"
+            android:exported="false" />
+        <activity
+            android:name=".creationActivity"
+            android:exported="false" />
+        <activity
             android:name=".passwordActivity"
             android:exported="false" />
         <activity
