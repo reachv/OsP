@@ -5,10 +5,12 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 import java.util.Map;
 
-@ParseClassName("Games")
+@ParseClassName("Game")
 public class GnSGames extends ParseObject {
 
     //Getters
@@ -30,6 +32,15 @@ public class GnSGames extends ParseObject {
     public String getTitle(){
         return getString("title");
     }
+    public ParseUser getcurrSet(){
+        return (ParseUser) get("currSet");
+    }
+    public Map<String, Boolean> getSolved(){
+        return getMap("solved");
+    }
+    public String getNext(){
+        return getString("nextW");
+    }
 
     //Setters
     public void setCurr(String curr){
@@ -49,5 +60,14 @@ public class GnSGames extends ParseObject {
     }
     public void setTitle(String x){
         put("title", x);
+    }
+    public void setcurrSet(ParseUser x){
+        put("currSet", x);
+    }
+    public void setSolved(Map<String, Boolean> x){
+        put("solved", x);
+    }
+    public void setNext(String x){
+        put("nextW", x);
     }
 }

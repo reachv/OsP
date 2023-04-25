@@ -4,27 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gameaspects.gameScreen">
+    tools:context=".gameaspects.addPlayers">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/apRv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/nextW"
+    <Button
+        android:id="@+id/apfinish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textCapCharacters"
+        android:layout_marginTop="8dp"
+        android:text="Finish"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        android:hint="Enter the next word"
-        android:textAlignment="center"
-        android:maxLength="5"/>
+        app:layout_constraintTop_toBottomOf="@+id/apRv" />
 </androidx.constraintlayout.widget.ConstraintLayout>

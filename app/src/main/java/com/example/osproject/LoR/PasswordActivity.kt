@@ -1,4 +1,4 @@
-package com.example.osproject
+package com.example.osproject.LoR
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.osproject.Fragment.SettingsFragment
+import com.example.osproject.R
 import com.parse.LogInCallback
 import com.parse.ParseUser
 

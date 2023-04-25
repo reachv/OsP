@@ -13,11 +13,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import com.example.osproject.LoR.Login
 import com.example.osproject.R
-import com.example.osproject.passwordActivity
-import com.parse.ParseQuery
+import com.example.osproject.LoR.passwordActivity
 import com.parse.ParseUser
 
 

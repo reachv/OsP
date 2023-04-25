@@ -7,17 +7,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.osproject.Adapters.gamesListAdapter
 import com.example.osproject.GnS.GnSGames
 import com.example.osproject.R
-import com.example.osproject.creationActivity
-import com.example.osproject.gameScreen
+import com.example.osproject.gameaspects.creationActivity
+import com.example.osproject.gameaspects.gameScreen
 import com.parse.ParseQuery
 import com.parse.ParseUser
+import org.parceler.Parcels
 
 class HomeFragment : Fragment() {
 
@@ -40,16 +40,20 @@ class HomeFragment : Fragment() {
         var onClickListener : gamesListAdapter.OnClickListener = gamesListAdapter.OnClickListener {
             var intent = Intent(context, gameScreen::class.java)
             intent.putExtra("curr", it.curr)
-            var temp = ArrayList<String>()
+            var temp  = ArrayList<String>()
             if(it.attempted.get(ParseUser.getCurrentUser().objectId) != null){
                 temp.addAll(it.attempted.get(ParseUser.getCurrentUser().objectId)!!)
             }
-            intent.putExtra("numAttempted", it.getnumAttempts().get(ParseUser.getCurrentUser().objectId))
-            intent.putExtra("attempted", temp)
-            intent.putExtra("score", it.score.get(ParseUser.getCurrentUser().objectId))
+            intent.putStringArrayListExtra("attempts", temp)
+            intent.putExtra("game", Parcels.wrap(it))
             startActivity(intent)
 
         }
+
+        //initialization of adapter and binding of recyclerview variables
+        gamesListadapter = gamesListAdapter(gameList, onClickListener)
+        recyclerView.adapter = gamesListadapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
 
         //Queries for games
         var query : ParseQuery<GnSGames> = ParseQuery.getQuery("Game")
@@ -59,10 +63,14 @@ class HomeFragment : Fragment() {
                 return@findInBackground
             }
             for(i in objects){
-                if(i.players.contains(ParseUser.getCurrentUser())){
-                    gameList.add(i)
+                for(x in i.players){
+                    if(x.fetchIfNeeded().objectId == ParseUser.getCurrentUser().objectId) {
+                        gameList.add(i)
+                        break
+                    }
                 }
             }
+            gamesListadapter.notifyDataSetChanged()
 
         }
 
@@ -71,11 +79,6 @@ class HomeFragment : Fragment() {
             val intent = Intent(context, creationActivity::class.java)
             startActivity(intent)
         }
-
-        //initialization of adapter and binding of recyclerview variables
-        gamesListadapter = gamesListAdapter(gameList, onClickListener)
-        recyclerView.adapter = gamesListadapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
 
         return view
     }

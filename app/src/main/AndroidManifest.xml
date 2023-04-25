@@ -18,13 +18,16 @@
         android:theme="@style/Theme.OSproject"
         tools:targetApi="31">
         <activity
-            android:name=".gameScreen"
+            android:name=".gameaspects.addPlayers"
             android:exported="false" />
         <activity
-            android:name=".creationActivity"
+            android:name=".gameaspects.gameScreen"
             android:exported="false" />
         <activity
-            android:name=".passwordActivity"
+            android:name=".gameaspects.creationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoR.passwordActivity"
             android:exported="false" />
         <activity
             android:name=".AddFriend"

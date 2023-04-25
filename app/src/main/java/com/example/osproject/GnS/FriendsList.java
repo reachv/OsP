@@ -4,7 +4,10 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import org.parceler.Parcel;
+
 import java.util.List;
+
 
 @ParseClassName("Friends")
 public class FriendsList extends ParseObject {

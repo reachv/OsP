@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.osproject.GnS.GnSGames;
 import com.example.osproject.R;
+import com.parse.ParseException;
 import com.parse.ParseUser;
 
 import java.util.List;
@@ -62,12 +63,16 @@ public class gamesListAdapter extends RecyclerView.Adapter<gamesListAdapter.View
         }
 
         public void bind(GnSGames temp) {
-            score.setText(temp.getScore() + "");
+            score.setText(score.getText().toString() + temp.getScore());
             for(ParseUser i : temp.getPlayers()){
-                players.setText(players.getText() + i.getUsername());
+                try {
+                    players.setText(players.getText() + i.fetchIfNeeded().getUsername()+", ");
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
-            attempt.setText("" + temp.getnumAttempts());
-            title.setText(temp.getTitle());
+            attempt.setText(attempt.getText().toString() + temp.getnumAttempts());
+            title.setText(title.getText().toString() + temp.getTitle());
         }
     }
 }

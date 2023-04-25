@@ -79,6 +79,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/e2b51d8a6750fc1f3cee0710121b42e8/transformed/jetified-javawriter-2.1.1.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/047019b76c4132b9bef8b653ddb4b8e0/transformed/jetified-javax.inject-1.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/d1a268eb5e55bdf2fd262c60b04bccaa/transformed/constraintlayout-2.1.4-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/b47e7bcca0de37a638f386126bb49a2c/transformed/jetified-parceler-api-1.1.12.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/03f26476cd8572a473f696e422b5b26a/transformed/jetified-bolts-tasks-1.4.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/4dc7bae0f724227da107beab559eeebd/transformed/jetified-okhttp-3.11.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/178e8ef565fbddd1799fe1711e2e0730/transformed/jetified-okio-1.14.0.jar</arg>
@@ -161,6 +162,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okio:okio:1.14.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.parceler:parceler-api:1.1.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test.ext:junit:1.1.5@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test:core:1.5.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test:monitor:1.6.1@aar" level="project" />
