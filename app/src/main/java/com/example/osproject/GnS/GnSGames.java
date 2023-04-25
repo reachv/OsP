@@ -1,5 +1,7 @@
 package com.example.osproject.GnS;
 
+import android.os.Parcelable;
+
 import com.parse.Parse;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
@@ -11,7 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 @ParseClassName("Game")
-public class GnSGames extends ParseObject {
+public class GnSGames extends ParseObject implements Parcelable {
+    public GnSGames(){}
 
     //Getters
     public String getCurr(){

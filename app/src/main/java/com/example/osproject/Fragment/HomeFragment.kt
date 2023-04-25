@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
                 temp.addAll(it.attempted.get(ParseUser.getCurrentUser().objectId)!!)
             }
             intent.putStringArrayListExtra("attempts", temp)
-            intent.putExtra("game", Parcels.wrap(it))
+            intent.putExtra("game", it)
             startActivity(intent)
 
         }

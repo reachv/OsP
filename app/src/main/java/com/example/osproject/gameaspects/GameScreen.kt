@@ -11,9 +11,12 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.osproject.Adapters.gameScreenAdapter
 import com.example.osproject.Fragment.HomeFragment
 import com.example.osproject.GnS.GnSGames
+import com.example.osproject.MainActivity
 import com.example.osproject.R
 import com.parse.ParseUser
 import org.parceler.Parcels
@@ -26,9 +29,10 @@ class gameScreen : AppCompatActivity() {
         var data = intent.extras
         var attempts = ArrayList<String>()
         var curr : String
-        var gnSGames : GnSGames = Parcels.unwrap(intent.getParcelableExtra("game", GnSGames::class.java))
+        var gnSGames : GnSGames = intent.getParcelableExtra("game", GnSGames::class.java)!!
         var gameScreenadapter : gameScreenAdapter
         var nextw : EditText = findViewById(R.id.nextW)
+        var recyclerView : RecyclerView = findViewById(R.id.gsRv)
 
         nextw.visibility = View.INVISIBLE
 
@@ -37,7 +41,7 @@ class gameScreen : AppCompatActivity() {
             nextw.visibility = View.VISIBLE
             //Records number of attempts
             val temp : MutableMap<String, Int> = gam.getnumAttempts()
-            temp[ParseUser.getCurrentUser().username] = pos
+            temp[ParseUser.getCurrentUser().username] = 0
             gam.setnumAttempt(temp)
             //Records attempts
             val atemp : MutableMap<String, List<String>> = gam.attempted;
@@ -51,6 +55,8 @@ class gameScreen : AppCompatActivity() {
             val score : MutableMap<String, Int> = gam.score
             score[ParseUser.getCurrentUser().username] = score.get(ParseUser.getCurrentUser().username)!! + (6-x.size)
             gam.score = score
+            //Sets word setter
+            gam.setcurrSet(ParseUser.getCurrentUser())
             nextw.addTextChangedListener(object: TextWatcher{
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -70,7 +76,7 @@ class gameScreen : AppCompatActivity() {
                                 Log.e( "GameScreenSaveException: ", it.toString());
                                 return@saveInBackground
                             }
-                            var intent = Intent(applicationContext, HomeFragment::class.java)
+                            var intent = Intent(applicationContext, MainActivity::class.java)
                             startActivity(intent)
                             finish()
                         }
@@ -79,14 +85,16 @@ class gameScreen : AppCompatActivity() {
             })
         }
 
-        if(gnSGames.attempted.get(ParseUser.getCurrentUser().objectId) != null){
-            attempts.addAll(gnSGames.attempted.get(ParseUser.getCurrentUser().objectId)!!)
-        }
-
         curr = gnSGames.curr
 
-
         gameScreenadapter = gameScreenAdapter(attempts, curr, gnSGames, onClickListener)
+        recyclerView.adapter = gameScreenadapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        if(gnSGames.attempted.get(ParseUser.getCurrentUser().username) != null){
+            attempts.addAll(gnSGames.attempted.get(ParseUser.getCurrentUser().username)!!)
+            gameScreenadapter.notifyDataSetChanged()
+        }
 
     }
 }

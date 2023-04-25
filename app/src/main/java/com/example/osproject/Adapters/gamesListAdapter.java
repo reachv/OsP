@@ -73,6 +73,30 @@ public class gamesListAdapter extends RecyclerView.Adapter<gamesListAdapter.View
             }
             attempt.setText(attempt.getText().toString() + temp.getnumAttempts());
             title.setText(title.getText().toString() + temp.getTitle());
+            score.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickListener.onItemClicked(temp);
+                }
+            });
+            title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickListener.onItemClicked(temp);
+                }
+            });
+            attempt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickListener.onItemClicked(temp);
+                }
+            });
+            players.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickListener.onItemClicked(temp);
+                }
+            });
         }
     }
 }
