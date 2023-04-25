@@ -58,6 +58,8 @@ class FriendsFragment : Fragment() {
                 newFriend.add(requests.requester)
                 temp.put("friendsList", newFriend)
                 temp.saveInBackground()
+                var friendsList : FriendsList
+                var list = ArrayList<ParseUser>()
                 adapter.notifyDataSetChanged()
 
                 //Creates new FriendsList
